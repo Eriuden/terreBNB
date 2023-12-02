@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom"
 import { Login } from './pages/login'
 import { Register } from './pages/Register'
 
+
+axios.defaults.baseURL = `${process.env.PORT}`
 function App() {
   
 // Remplacer certaines valeurs par des icones plus tard

@@ -21,6 +21,6 @@ export const Header = () => {
         <Link to={"login"} className='bg-gray-500 text-white rounded-full p-1 border border-gray-500 '>
           Connexion
         </Link>
-      </header>
+    </header>
   )
 }
