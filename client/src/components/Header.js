@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
   return (
@@ -17,9 +18,9 @@ export const Header = () => {
         </div>
         <div className='flex gap-2 border border-gray-300 rounded-full 
         py-2 px-4'>+</div>
-        <div className='bg-gray-500 text-white rounded-full p-1 border border-gray-500 '>
-          user
-        </div>
+        <Link to={"login"} className='bg-gray-500 text-white rounded-full p-1 border border-gray-500 '>
+          Connexion
+        </Link>
       </header>
   )
 }
