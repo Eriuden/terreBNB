@@ -5,14 +5,21 @@ export const Register = () => {
   const [mail, setMail] = useState("")
   const [password, setPassword] = useState("")
 
-    function register(e) {
+    async function register(e) {
         e.preventDefault();
-        axios.post("/register", {
-            name,
-            mail,
-            password
-        } )
+
+        try {
+            await axios.post("/register", {
+                name,
+                mail,
+                password
+            })
+        }
+        catch(err) {
+            res.status(400).json(err)
+        }  
     }
+    
   return (
     <div>
          <div className='mb-16'>
