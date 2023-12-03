@@ -34,7 +34,7 @@ app.post("/register", async (req,res) => {
 })
 
 app.post("/login", async(req, res) => {
-    const {email,password} = req.body 
+    const {email} = req.body 
     const user = awaitUserModel.findOne({email})
     if (user) {
         res.json("Correspondance")
