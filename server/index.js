@@ -1,10 +1,12 @@
 const express = require("express")
 const cors = require("cors")
 const UserModel = require("./models/user")
-const jsonwebtoken = require("jsonwebtoken")
 const app = express()
+const cookieParser = require("cookie-parser")
+const jsonwebtoken = require("jsonwebtoken")
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors({
     credentials:true,
     origin: "ip",
@@ -41,5 +43,19 @@ app.post("/login", async(req, res) => {
     } else {
         res.json("Aucune correspondance")
     }
+})
+
+app.get("/profile", (req,res) => {
+    const {token} = req.cookies
+    if (token) {
+        jsonwebtoken.verify(process.env.TOKEN_SECRET, {}, async (err, user)=> {
+            if (err) throw err;
+            const {name,mail,_id} = await UserModel.findById(user.id)
+            res.json({name,mail,_id})
+        })
+    } else {
+        res.json(null)
+    }
+    res.json("user info")
 })
 app.listen(port)
