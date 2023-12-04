@@ -1,20 +1,31 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from "axios"
+import { useContext } from 'react'
+import { UserContext } from '../contexts/userContext'
 
 export const Login = () => {
 
   const [mail, setMail] = useState("")
   const [password, setPassword] = useState("")
 
+  const {setUser} =useContext(UserContext)
+
   async function login(e){
     e.preventDefault()
-    try {axios.post("/login", {mail,password}, {withCredentials: true})}
+    try {
+        const user = await axios.post("/login", {mail,password},
+        setUser(user),
+        {withCredentials: true})
+        window.location ="/"}
     
     catch(err) {
     res.status(400).json(err)
     }
   }
+
+
 
   return (
     <div className='mt-4 grow flex items-center justify-around'>

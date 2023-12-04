@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../contexts/userContext'
 
 export const Header = () => {
+  const {user} = useContext(UserContext)
   return (
     <header className='p-2 flex justify-between'>
         <a href='' className='flex items-center gap-1'>TerreBNB</a>
@@ -19,7 +21,8 @@ export const Header = () => {
         <div className='flex gap-2 border border-gray-300 rounded-full 
         py-2 px-4'>+</div>
         <Link to={"login"} className='bg-gray-500 text-white rounded-full p-1 border border-gray-500 '>
-          Connexion
+          {!user && <div>Connexion</div>
+          }:<div>{user.name}</div>
         </Link>
     </header>
   )
