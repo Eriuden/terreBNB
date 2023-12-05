@@ -22,7 +22,9 @@ function App() {
           <Route exact path={"/"} element={<Home/>} />
           <Route exact path={"/login"} element={<Login/>} />
           <Route exact path={"/register"} element={<Register/>} />
-          <Route exact path={"/account"} element={<Account/>} />
+          <Route exact path={"/account/:subpage?"} element={<Account/>} />
+          <Route exact path={"/account/bookings"} element={<Account/>} />
+          <Route exact path={"/account/places"} element={<Account/>} />
         </Routes>
         <div>
           <Header/>
