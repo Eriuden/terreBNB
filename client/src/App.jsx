@@ -11,9 +11,7 @@ import { Account } from './pages/Account'
 axios.defaults.baseURL = `${process.env.PORT}`
 axios.defaults.withCredentials = true
 
-function App() {
-
-  
+function App() { 
 // Remplacer certaines valeurs par des icones plus tard
   return (   
     <>
