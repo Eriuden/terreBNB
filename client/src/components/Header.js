@@ -6,7 +6,7 @@ export const Header = () => {
   const {user} = useContext(UserContext)
   return (
     <header className='p-2 flex justify-between'>
-        <a href='' className='flex items-center gap-1'>TerreBNB</a>
+        <Link to={"/"} className='flex items-center gap-1'>TerreBNB</Link>
         <div className='flex gap-2 border border-gray-300 rounded-full 
         py-2 px-4 shadow-md shadow-gray-300'>
           <div>N'importe où</div>
@@ -20,9 +20,8 @@ export const Header = () => {
         </div>
         <div className='flex gap-2 border border-gray-300 rounded-full 
         py-2 px-4'>+</div>
-        <Link to={"login"} className='bg-gray-500 text-white rounded-full p-1 border border-gray-500 '>
-          {!user && <div>Connexion</div>
-          }:<div>{user.name}</div>
+        <Link to={user ? "/profile":"login"} className='bg-gray-500 text-white rounded-full p-1 border border-gray-500 '>
+          {user && <div>{user.name}</div>}
         </Link>
     </header>
   )
