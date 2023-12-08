@@ -28,23 +28,51 @@ export const PlacesPages = () => {
             <textarea />
             <h2 className='text-2xl mt-4'>Atouts du lieu</h2>
             <p className='text-gray-500 text-sm'>Quels sont les atouts de ce lieu ?</p>
-            <div>
+            <div className='grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6'>
               <label>
-                <input type="checkbox" />
+                <input type="checkbox" className='flex rounded-2xl border p-4' />
                 <span>Wifi</span>
               </label>
               <label>
-                <input type="checkbox" />
+                <input type="checkbox" className='flex rounded-2xl border p-4' />
                 <span>Parking gratuit</span>
               </label>
               <label>
-                <input type="checkbox" />
+                <input type="checkbox" className='flex rounded-2xl border p-4' />
                 <span>Télévision</span>
               </label>
               <label>
-                <input type="checkbox" />
+                <input type="checkbox" className='flex rounded-2xl border p-4' />
+                <span>Radio</span>
+              </label>
+              <label>
+                <input type="checkbox" className='flex rounded-2xl border p-4' />
                 <span>Animaux acceptés</span>
               </label>
+            </div>
+
+            <h2 className='text-2xl mt-4'>Infos additionnelles</h2>
+            <p className='text-gray-500 text-sm'>Règles à respecter</p>
+            <textarea />
+
+            <h2 className='text-2xl mt-4'>Heures d'entrée/sortie, maximum d'invités</h2>
+            <p className='text-gray-500 text-sm'>Entrer les heures, souvenez vous que les invités auront besoin de nettoyer</p>
+            <textarea />
+            <div>
+              <h3>Heure d'entrée</h3>
+              <input type="text" placeholder='00:00'/>
+            </div>
+            <div>
+              <h3>Heure de sortie</h3>
+              <input type="text" placeholder='00:00'/>
+            </div>
+            <div>
+              <h3>Nombre maximum d'invité</h3>
+              <input type="text" placeholder='invités maximum'/>
+            </div>
+
+            <div>
+              <button className='bg-gray-300 my-4'>Sauvegarder</button>
             </div>
           </form>
         </div>
