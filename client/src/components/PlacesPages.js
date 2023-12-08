@@ -17,12 +17,35 @@ export const PlacesPages = () => {
             <h2 className='text-xl mt-2'>Adresse</h2>
             <input type="text" placeholder='Adresse'/>
 
-            <div>
-              <input type="text" placeholder={""}/>
-            </div>
-
             <h2 className='text-xl mt-2'>Photos</h2>
-            <button className='border bg-transparent rounded-2xl p-4'>Ajouter</button>
+            <div className='flex gap-2'>
+              <input type="text" placeholder={"Veuillez envoyer des photos au format jpg"}/>
+              <button className='bg-gray-300 px-4 rounded-2xl'>Ajouter photo</button>
+            </div>
+            <button className='border bg-transparent rounded-2xl p-4'>Ajouter depuis votre appareil</button>
+            <h2 className='text-2xl mt-4'>Description</h2>
+            <p className='text-gray-500 text-sm'>Description du lieu</p>
+            <textarea />
+            <h2 className='text-2xl mt-4'>Atouts du lieu</h2>
+            <p className='text-gray-500 text-sm'>Quels sont les atouts de ce lieu ?</p>
+            <div>
+              <label>
+                <input type="checkbox" />
+                <span>Wifi</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span>Parking gratuit</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span>Télévision</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span>Animaux acceptés</span>
+              </label>
+            </div>
           </form>
         </div>
       )}
