@@ -4,6 +4,7 @@ const UserModel = require("./models/user")
 const app = express()
 const cookieParser = require("cookie-parser")
 const jsonwebtoken = require("jsonwebtoken")
+const imageDownloader = require("image-downloader")
 
 app.use(express.json())
 app.use(cookieParser())
@@ -61,6 +62,16 @@ app.get("/profile", (req,res) => {
 
 app.post("/logout" , (req,res) => {
     res.cookie("token", "").json(true)
+})
+
+app.post("/upload-by-link", async(req,res) => {
+    const {link} = req.body;
+    const newName = Date.now() +".jpg"
+    await imageDownloader.image({
+        url: link,
+        destination:__dirname +"/uploads/" + newName
+    })
+    res.json(__dirname +"/uploads/" + newName)
 })
 
 app.listen(port)
