@@ -15,6 +15,15 @@ export const PlacesPages = () => {
   const [heureSortie, setHeureSortie] = useState("")
   const [maxInvite, setMaxInvite] = useState(1)
 
+  async function addPicByLink(e) {
+    e.preventDefault()
+    const {data: filename} = await axios.post("/upload-by-link", {Link: lienPhoto})
+    setAjoutPhotos(prev => {
+      return [...prev, filename]
+    })
+    setLienPhoto("")
+  }
+
   return (
     <div>
       {action != "new" && (
@@ -31,11 +40,18 @@ export const PlacesPages = () => {
 
             <h2 className='text-xl mt-2'>Photos</h2>
             <div className='flex gap-2'>
-              <input type="text" placeholder="Veuillez envoyer des photos au format jpg" value={ajoutPhotos} onChange={(e)=> setAjoutPhotos(e.target.value)} />
-              <button className='bg-gray-300 px-4 rounded-2xl'>Ajouter photo</button>
-              <button className='border bg-transparent rounded-2xl p-4' value={lienPhoto} onChange={(e)=> setLienPhoto(e.target.value)}>Ajouter depuis votre appareil</button>
+              <input type="text" placeholder="Veuillez envoyer des photos au format jpg" value={lienPhoto} onChange={(e)=> setLienPhoto(e.target.value)} />
+              <button onClick={addPicByLink} className='bg-gray-300 px-4 rounded-2xl'>Ajouter photo</button>
             </div>
             
+            <div>
+              {ajoutPhotos.length > 0 && ajoutPhotos.map((link)=> {
+                <div>
+                 <img src={`${process.env.SERVER_PORT}/uploads/`+ link}/>
+                </div>
+              })}
+            </div>
+
             <h2 className='text-2xl mt-4'>Description</h2>
             <p className='text-gray-500 text-sm'>Description du lieu</p>
             <textarea value={description} onChange={(e)=> setDescription(e.target.value)} />
