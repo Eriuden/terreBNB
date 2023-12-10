@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser")
 const jsonwebtoken = require("jsonwebtoken")
 const imageDownloader = require("image-downloader")
 const multer = require("multer")
+const fs= require("fs")
 
 app.use(express.json())
 app.use(cookieParser())
@@ -78,7 +79,16 @@ app.post("/upload-by-link", async(req,res) => {
 
 const picsMiddleware = multer({destination: "uploads"})
 app.post("upload",picsMiddleware.array("pics", 100), (req,res)=> {
-    res.json(req.files)
+    const uploadedFiles = []
+    for (let i = 0; i <req.files.length; i++) {
+        const {path, originalName} = req.files[i]
+        const parts = originalName.split(".")
+        const ext = parts[parts.length -1]
+        const newPath = path + "." + ext
+        fs.renameSync(path, newPath)
+        uploadedFiles.push(newPath)
+    }
+    res.json(uploadedFiles)
 })
 
 app.listen(port)

@@ -27,7 +27,9 @@ export const PlacesPages = () => {
   async function uploadPhoto(e){
     const files = e.target.files
     const data = new FormData()
-    data.set("pics", files)
+    for(let i = 0; i < files.length; i++) {
+      data.append("pics", files[i])
+    }
     axios.post("/upload", data, {
       headers: {"Content-type": "multipart/form-data"}
     }).then(res=>{
@@ -69,7 +71,7 @@ export const PlacesPages = () => {
             </div>
 
             <label>
-              <input type="file" className='hidden' onChange={uploadPhoto} />
+              <input type="file" multiple className='hidden' onChange={uploadPhoto} />
               upload
             </label>
 
