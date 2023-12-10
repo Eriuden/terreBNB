@@ -24,6 +24,20 @@ export const PlacesPages = () => {
     setLienPhoto("")
   }
 
+  async function uploadPhoto(e){
+    const files = e.target.files
+    const data = new FormData()
+    data.set("pics", files)
+    axios.post("/upload", data, {
+      headers: {"Content-type": "multipart/form-data"}
+    }).then(res=>{
+      const {data:filename} = res
+      setAjoutPhotos(prev => {
+        return [...prev, filename]
+      })
+    })
+  }
+
   return (
     <div>
       {action != "new" && (
@@ -43,6 +57,8 @@ export const PlacesPages = () => {
               <input type="text" placeholder="Veuillez envoyer des photos au format jpg" value={lienPhoto} onChange={(e)=> setLienPhoto(e.target.value)} />
               <button onClick={addPicByLink} className='bg-gray-300 px-4 rounded-2xl'>Ajouter photo</button>
             </div>
+
+            
             
             <div>
               {ajoutPhotos.length > 0 && ajoutPhotos.map((link)=> {
@@ -51,6 +67,11 @@ export const PlacesPages = () => {
                 </div>
               })}
             </div>
+
+            <label>
+              <input type="file" className='hidden' onChange={uploadPhoto} />
+              upload
+            </label>
 
             <h2 className='text-2xl mt-4'>Description</h2>
             <p className='text-gray-500 text-sm'>Description du lieu</p>
