@@ -86,7 +86,7 @@ app.post("upload",picsMiddleware.array("pics", 100), (req,res)=> {
         const ext = parts[parts.length -1]
         const newPath = path + "." + ext
         fs.renameSync(path, newPath)
-        uploadedFiles.push(newPath)
+        uploadedFiles.push(newPath.replace("uploads/",""))
     }
     res.json(uploadedFiles)
 })
