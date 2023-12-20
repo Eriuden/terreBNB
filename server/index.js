@@ -7,6 +7,7 @@ const jsonwebtoken = require("jsonwebtoken")
 const imageDownloader = require("image-downloader")
 const multer = require("multer")
 const fs= require("fs")
+const place = require("./models/places")
 
 app.use(express.json())
 app.use(cookieParser())
@@ -91,4 +92,27 @@ app.post("upload",picsMiddleware.array("pics", 100), (req,res)=> {
     res.json(uploadedFiles)
 })
 
+app.post("/places", (req,res) => {
+    const {token} = req.cookies 
+    const {titre, adresse, ajoutPhotos, description, avantages, infoExtra,
+    heureEntrée, heureSortie, maxInvite} = req.body
+    jwt.verify(token, jwtSecret, {}, async (err, userData)=> {
+        if (err) throw err
+
+         const placeDocument = await place.create({
+            owner: userData.id,
+            titre,
+            adresse, 
+            ajoutPhotos, 
+            description,
+            avantages, 
+            infoExtra,
+            heureEntrée,
+            heureSortie, 
+            maxInvite, 
+        })
+        res.json(placeDocument)
+    })
+    
+})
 app.listen(port)

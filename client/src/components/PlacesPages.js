@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { Perks } from './Perks'
 
 export const PlacesPages = () => {
@@ -14,6 +14,7 @@ export const PlacesPages = () => {
   const [heureEntrée, setHeureEntrée] = useState("")
   const [heureSortie, setHeureSortie] = useState("")
   const [maxInvite, setMaxInvite] = useState(1)
+  const [redirect, setRedirect] = useState("")
 
   async function addPicByLink(e) {
     e.preventDefault()
@@ -40,6 +41,19 @@ export const PlacesPages = () => {
     })
   }
 
+  async function AjoutPlace(e) {
+    e.preventDefault()
+    await axios.post ("/places", {titre, adresse, ajoutPhotos, 
+    description, avantages, 
+    infoExtra, heureEntrée, heureSortie, maxInvite
+    })
+    setRedirect("/account/places")
+  }
+
+  if (redirect) {
+    return <Navigate to={redirect}/>
+  }
+
   return (
     <div>
       {action != "new" && (
@@ -47,7 +61,7 @@ export const PlacesPages = () => {
       )}  
       { action == "new" && (
         <div>
-          <form>
+          <form onSubmit={AjoutPlace}>
             <h2 className='text-xl mt-2'>Titre</h2>
             <input type="text" placeholder='Titre' value={titre} onChange={(e)=> setTitre(e.target.value)}/>
 
@@ -55,25 +69,26 @@ export const PlacesPages = () => {
             <input type="text" placeholder='Adresse' value={adresse} onChange={(e)=> setAdresse(e.target.value)}/>
 
             <h2 className='text-xl mt-2'>Photos</h2>
+
             <div className='flex gap-2'>
-              <input type="text" placeholder="Veuillez envoyer des photos au format jpg" value={lienPhoto} onChange={(e)=> setLienPhoto(e.target.value)} />
+              <input type="text" placeholder="Veuillez envoyer des photos au format jpg"
+                value={lienPhoto} onChange={(e)=> setLienPhoto(e.target.value)} />
               <button onClick={addPicByLink} className='bg-gray-300 px-4 rounded-2xl'>Ajouter photo</button>
             </div>
-
-            
-            
+          
             <div>
               {ajoutPhotos.length > 0 && ajoutPhotos.map((link)=> {
                 <div>
                  <img src={`${process.env.SERVER_PORT}/uploads/`+ link}/>
                 </div>
               })}
+              <label>
+              <input type="file" multiple className='hidden' onChange={uploadPhoto} />
+                upload
+              </label>
             </div>
 
-            <label>
-              <input type="file" multiple className='hidden' onChange={uploadPhoto} />
-              upload
-            </label>
+            
 
             <h2 className='text-2xl mt-4'>Description</h2>
             <p className='text-gray-500 text-sm'>Description du lieu</p>
