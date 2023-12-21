@@ -14,7 +14,7 @@ export const PlacesPages = () => {
   const [heureEntrée, setHeureEntrée] = useState("")
   const [heureSortie, setHeureSortie] = useState("")
   const [maxInvite, setMaxInvite] = useState(1)
-  const [redirect, setRedirect] = useState("")
+  const [redirect, setRedirect] = useState(false)
 
   async function addPicByLink(e) {
     e.preventDefault()
@@ -47,16 +47,16 @@ export const PlacesPages = () => {
     description, avantages, 
     infoExtra, heureEntrée, heureSortie, maxInvite
     })
-    setRedirect("/account/places")
+    setRedirect(true)
   }
 
-  if (redirect) {
-    return <Navigate to={redirect}/>
+  if (redirect && action !== "new") {
+    return <Navigate to={"/account/places"}/>
   }
 
   return (
     <div>
-      {action != "new" && (
+      {action !== "new" && (
         <Link to={"/account/places/new"}>Mes endroits</Link>
       )}  
       { action == "new" && (
