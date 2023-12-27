@@ -6,6 +6,7 @@ import { Login } from './pages/login'
 import { Register } from './pages/Register'
 import { UserContextProvider } from './contexts/userContext'
 import { Account } from './pages/Account'
+import { PlacesPages } from './components/PlacesPages'
 
 
 axios.defaults.baseURL = `${process.env.PORT}`
@@ -24,6 +25,7 @@ function App() {
           <Route exact path={"/account/:subpage/:action"} element={<Account/>} />
           <Route exact path={"/account/bookings"} element={<Account/>} />
           <Route exact path={"/account/places"} element={<Account/>} />
+          <Route exact path={"/account/places/new"} element={<PlacesPages/>}/>
         </Routes>
         <div>
           <Header/>

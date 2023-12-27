@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Perks } from './Perks'
 
 export const PlacesPages = () => {
+
   const {action} = useParams()
+  const [places, setPlaces] = useState([])
   const [titre,setTitre] = useState("")
   const [adresse, setAdresse] = useState("")
   const [ajoutPhotos, setAjoutPhotos] = useState([])
@@ -15,6 +17,12 @@ export const PlacesPages = () => {
   const [heureSortie, setHeureSortie] = useState("")
   const [maxInvite, setMaxInvite] = useState(1)
   const [redirect, setRedirect] = useState(false)
+
+  useEffect(() => {
+    axios.get("/places").then(({data})=> {
+      setPlaces(data)
+    })
+  }, [])
 
   async function addPicByLink(e) {
     e.preventDefault()
@@ -124,6 +132,28 @@ export const PlacesPages = () => {
               <button className='bg-gray-300 my-4'>Sauvegarder</button>
             </div>
           </form>
+
+          <div>
+            {places.length > 0 && places.map(place => (
+              <>
+                <Link to={"/account/places/"+ place._id}/>
+                  <div>
+                    <div>
+                      {place.pics.length > 0 && (
+                        <img src={place.pics[0]} alt=""/>
+                      )}
+                    </div>
+
+                    <div>
+                    <h2>{place.title}</h2>
+                    <p>{place.description}</p>
+                    </div>
+                    
+                  </div>
+              </>
+              
+            ))}
+          </div>
         </div>
       )}
     </div>
